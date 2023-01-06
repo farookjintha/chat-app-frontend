@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Routes, Route } from 'react-router-dom';
+import UserContext from "./Context/UserContext";
+import useFindUser from "./Hooks/useFindUser";
+
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import Chat from "./Components/Chat";
+
+import PublicRoutes from "./Routes/PublicRoutes";
+import PrivateRoutes from "./Routes/PrivateRoutes";
 
 function App() {
+  const [user, setUser, loading] = useFindUser();
+  console.log('User: ', user);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{user, setUser, loading}}>
+      <div className="App">
+          <Routes>
+            <Route element={<PublicRoutes />}>
+              <Route path='/login' element={<Login />} />
+              <Route path="/register" element={<Register/>} />
+            </Route>
+
+            <Route element={<PrivateRoutes />}>
+              <Route path='/chat' element={<Chat />}/>
+            </Route>
+          </Routes>
+      </div>
+    </UserContext.Provider>
   );
 }
 
