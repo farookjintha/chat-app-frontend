@@ -17,7 +17,7 @@ const Login = () => {
             event.preventDefault();
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/signin`, userCred, {withCredentials: true});
             if(response){
-                navigate('/chat');
+                navigate('/');
             }
         }catch(error){
             console.log('Error: ', error);
@@ -26,6 +26,7 @@ const Login = () => {
 
     return (
         <div>
+            <h3>User Login</h3>
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label>Email address</label>
@@ -35,8 +36,11 @@ const Login = () => {
                     <label>Password</label>
                     <input type="password" className="form-control" id="password" value={userCred.password} placeholder="Password" onChange={(e) => handleCred({password: e.target.value})} />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Login</button>
             </form>
+            <div>
+                <a href="/forgotPassword">Forgot password?</a>
+            </div>
         </div>
     )
 }

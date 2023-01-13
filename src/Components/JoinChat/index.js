@@ -18,7 +18,7 @@ const JoinChat = ({socket}) => {
     }
 
     return (
-    <div>
+    <div className="App">
         {
         !showChat ? 
         <div className="joinChatContainer">
